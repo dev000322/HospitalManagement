@@ -58,7 +58,7 @@ const Login = () => {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            email: formData.username,
+            email: formData.username.trim(),
             password: formData.password
           })
         });
@@ -66,7 +66,12 @@ const Login = () => {
         const data = await response.json();
 
         if (response.ok) {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("userEmail", formData.username);
+          localStorage.setItem("userName", data.name);
+
           alert("Login successful!");
+
           navigate("/");
         } else {
           alert(data.message);

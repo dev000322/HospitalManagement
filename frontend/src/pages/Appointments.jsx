@@ -3,6 +3,7 @@ import React, { useState } from "react";
 function Appointments() {
   const [formData, setFormData] = useState({
     patientName: "",
+    email: "",
     doctorName: "",
     date: "",
     time: ""
@@ -15,11 +16,36 @@ function Appointments() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Appointment Booked Successfully!");
-    console.log(formData);
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const appointmentData = {
+    name: formData.patientName,
+    email: formData.email,
+    doctor: formData.doctorName,
+    date: formData.date,
+    time: formData.time
   };
+
+  try {
+
+    const response = await fetch("http://localhost:3000/book-appointment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(appointmentData)
+    });
+
+    const result = await response.json();
+
+    alert(result.message);
+
+  } catch (error) {
+    console.error(error);
+    alert("Error booking appointment");
+  }
+};
 
   return (
     <div className="page-wrapper">
@@ -36,6 +62,14 @@ function Appointments() {
             onChange={handleChange}
             required
           />
+          <input
+  type="email"
+  name="email"
+  placeholder="Patient Email"
+  value={formData.email || ""}
+  onChange={handleChange}
+  required
+/>
 
           <select name="doctorName" onChange={handleChange} required>
             <option value="">Select Doctor</option>

@@ -10,49 +10,15 @@
 body {
   min-height: 100vh;
   font-family: 'Inter', 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #0f0c29 0%, #302b63 40%, #24243e 100%);
-  background-attachment: fixed;
+  background-color: transparent;
   overflow-x: hidden;
-  color: #e0e0e0;
+  color: #333; /* Dark text for visibility */
 }
+
 
 /* =============================================
    ANIMATED GRADIENT ORBS
 ============================================= */
-body::before,
-body::after {
-  content: '';
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.35;
-  z-index: 0;
-  pointer-events: none;
-  animation: orbFloat  ease-in-out infinite alternate;
-}
-
-body::before {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, #7c3aed, #4f46e5);
-  top: -100px;
-  left: -100px;
-}
-
-body::after {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, #06b6d4, #8b5cf6);
-  bottom: -100px;
-  right: -100px;
-  animation-delay: -4s;
-}
-
-@keyframes orbFloat {
-  0%   { transform: translate(0px, 0px) scale(1); }
-  50%  { transform: translate(40px, 30px) scale(1.08); }
-  100% { transform: translate(-20px, 20px) scale(0.95); }
-}
 
 /* =============================================
    NAVBAR
@@ -61,14 +27,13 @@ nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   padding: 0 2rem;
   display: flex;
   align-items: center;
   gap: 2rem;
   height: 60px;
+  /* Keep rest unchanged */
+
 }
 
 nav .brand {
@@ -111,9 +76,16 @@ nav a.active {
    GLASS CARD
 ============================================= */
 .card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: transparent;
+  border: none;
+  padding: 3rem 3.5rem;
+  width: 100%;
+  max-width: 860px;
+  border-radius: 20px;
+  animation: fadeInUp 0.6s ease both;
+  transition: transform 0.3s ease;
+  /* Keep rest (delete box-shadow if present) */
+
   border-radius: 20px;
   padding: 3rem 3.5rem;
   width: 100%;
@@ -393,4 +365,98 @@ nav a.active {
 
 .doctor-card:hover {
   transform: translateY(-4px);
+}
+
+.user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.logout-dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: #2a1f55;
+  border-radius: 6px;
+  padding: 6px 10px;
+  display: none;
+}
+
+.logout-dropdown button {
+  color: white;
+}
+
+.user-menu:hover .logout-dropdown {
+  display: block;
+}
+.doctor-item, .doctor-card, .department-card,
+.appointment-form input, .appointment-form select,
+.input {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  border: 1px solid rgba(0,0,0,0.1) !important; /* Subtle border */
+}
+
+.MuiAppBar-root {
+  background-color: transparent !important;
+  backdrop-filter: blur(10px); /* Glass effect optional */
+  box-shadow: none !important; /* Remove MUI shadow */
+}
+
+.MuiAppBar-root .MuiButton-root {
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-transform: none !important; /* Match your uppercase? Remove if not */
+}
+
+/* Match card h1 gradient font */
+nav .brand,
+nav a {
+  font-family: inherit; /* Inter, Segoe UI from body */
+  background: linear-gradient(90deg, #e0c3fc, #8ec5fc); /* Card gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700; /* Bold like h1 */
+  font-size: 1rem; /* Slightly larger for harmony */
+  letter-spacing: 0.5px; /* Subtle */
+}
+
+nav a:hover,
+nav a.active {
+  background: linear-gradient(90deg, #a78bfa, #60a5fa); /* Hover variant */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.MuiAppBar-root .MuiTypography-root,
+.MuiAppBar-root .MuiButton-root {
+  background: linear-gradient(90deg, #e0c3fc, #8ec5fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+
+.MuiAppBar-root {
+  position: fixed !important;
+  top: 0 !important;
+  left: 1.5rem !important;
+  right: 1.5rem !important;
+  width: auto !important;
+  background-color: transparent !important;   /* Card exact */
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: none !important;                    /* Remove ALL white lines */
+  border-radius: 0 0 20px 20px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;  /* Card shadow only */
+  box-sizing: border-box !important;
+  height: 70px !important;
+  z-index: 1200 !important;
+}
+
+.MuiToolbar-root {
+  padding: 0 1.5rem !important;
+  min-height: 70px !important;
 }

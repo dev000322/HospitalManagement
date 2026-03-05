@@ -80,21 +80,46 @@ function Signup() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    let newErrors = {};
-    Object.keys(formData).forEach((key) => {
-      const error = validateField(key, formData[key]);
-      if (error) newErrors[key] = error;
-    });
+  let newErrors = {};
+  Object.keys(formData).forEach((key) => {
+    const error = validateField(key, formData[key]);
+    if (error) newErrors[key] = error;
+  });
 
-    setErrors(newErrors);
+  setErrors(newErrors);
 
-    if (Object.keys(newErrors).length === 0) {
-      alert("Account Created Successfully!");
+  if (Object.keys(newErrors).length === 0) {
+    try {
+      const response = await fetch("http://localhost:3000/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password
+        })
+      });
+
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+localStorage.setItem("userEmail", formData.email);
+localStorage.setItem("userName", formData.name);
+
+alert("Signup successful!");
+
+window.location.href = "/";
+
+    } catch (error) {
+      console.error(error);
+      alert("Server error. Make sure backend is running.");
     }
-  };
+  }
+};
 
   return (
     <div className="page-wrapper">
