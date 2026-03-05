@@ -1,154 +1,185 @@
 Hospital Management System
-==========================
 
-A full-stack Hospital Management System built using React (Vite) for the frontend and Node.js with Express for the backend, integrated with a MySQL database.
+A full-stack Hospital Management System built using React (Vite) for the frontend and Node.js with Express for the backend, integrated with a MySQL database and email notifications using Resend API.
 
-This system is designed to manage hospital operations including patients, doctors, appointments, and authentication workflows through a structured frontend–backend architecture.
+This system allows users to register, log in, book doctor appointments, and receive confirmation emails after booking.
 
+⸻
 
 Overview
---------
 
-The application follows a clear separation of concerns:
+The project follows a modern full-stack architecture:
+	•	Frontend manages the user interface and routing.
+	•	Backend provides REST APIs for authentication and appointments.
+	•	MySQL stores users and appointment records.
+	•	Resend Email API sends appointment confirmation emails.
 
-- The frontend handles user interface and routing.
-- The backend exposes RESTful APIs.
-- MySQL manages persistent data storage.
+The structure is modular and supports future scalability such as admin dashboards and advanced hospital workflows.
 
-The structure supports modular development and future scalability.
-
+⸻
 
 Technology Stack
-----------------
 
-Frontend:
-- React (Vite)
-- React Router
-- Material UI
-- CSS
+Frontend
+	•	React (Vite)
+	•	React Router
+	•	Material UI
+	•	CSS
 
-Backend:
-- Node.js
-- Express.js
-- MySQL
+Backend
+	•	Node.js
+	•	Express.js
+	•	MySQL
+	•	JWT Authentication
+	•	bcrypt (password hashing)
 
+External Services
+	•	Resend Email API (appointment confirmation emails)
+
+⸻
+
+Features
+
+Authentication
+	•	User registration
+	•	Secure password hashing with bcrypt
+	•	Login authentication
+	•	JWT token generation
+
+Appointment Booking
+	•	Book doctor appointments
+	•	Select date and time
+	•	Store appointment data in MySQL
+	•	Email confirmation after booking
+
+Email Notification
+
+After booking an appointment the system automatically sends an email containing:
+	•	Patient name
+	•	Doctor name
+	•	Appointment date
+	•	Appointment time
+	•	Hospital contact details
+
+Hospital Information
+	•	Doctor listings
+	•	Department listings
+	•	Appointment booking interface
+
+⸻
 
 Project Structure
------------------
 
-```
 HospitalManagement
 │
 ├── backend
 │   ├── server.js
 │   ├── db.js
-│   └── database/
+│   ├── .env
+│   └── database
 │       └── hms_db.sql
 │
 ├── frontend
-│   ├── src/
-│   ├── public/
+│   ├── src
+│   ├── public
 │   └── vite.config.js
 │
 └── README.md
-```
 
-
-Features
---------
-
-- Patient management
-- Doctor management
-- Appointment booking
-- Department listings
-- User authentication (login and signup)
-- RESTful API integration
-
+⸻
 
 Installation and Setup
-----------------------
 
-1. Clone the repository
+1. Clone the Repository
 
-```
 git clone https://github.com/dev000322/HospitalManagement.git
 cd HospitalManagement
-```
 
-2. Backend setup
+⸻
 
-```
+Backend Setup
+
 cd backend
 npm install
 node server.js
-```
 
-The backend server runs on:
-http://localhost:5000
+Backend server runs on:
+http://localhost:3000
 
+⸻
 
-3. Frontend setup
+Frontend Setup
 
-Open a new terminal:
+Open another terminal:
 
-```
 cd frontend
 npm install
 npm run dev
-```
 
-The frontend runs on:
+Frontend runs on:
 http://localhost:5173
 
+⸻
 
-4. Database setup
+Database Setup
+	1.	Create a MySQL database
 
-- Create a MySQL database.
-- Import the SQL file located at:
+CREATE DATABASE hms_db;
+	2.	Import the database file located at:
 
-```
 backend/database/hms_db.sql
-```
+	3.	Update database credentials inside:
 
-- Update database credentials in:
-
-```
 backend/db.js
-```
 
+⸻
 
-Environment Configuration
--------------------------
+Environment Variables
 
-If using environment variables, create a `.env` file inside the backend directory:
+Create a .env file inside the backend folder.
 
-```
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=your_password
-DB_NAME=hospital_db
-PORT=5000
-```
+DB_NAME=hms_db
 
+JWT_SECRET=your_secret_key
+
+RESEND_API_KEY=your_resend_api_key
+
+⸻
+
+API Endpoints
+
+Authentication
+
+POST /register
+POST /login
+
+Appointments
+
+POST /book-appointment
+
+⸻
 
 Future Improvements
--------------------
+	•	Admin dashboard
+	•	Appointment management panel
+	•	Doctor availability scheduling
+	•	Prevent duplicate booking
+	•	Role-based access control
+	•	Deployment configuration
 
-- Role-based access control
-- JWT-based authentication
-- Input validation and middleware improvements
-- Admin dashboard analytics
-- Deployment configuration
-
+⸻
 
 Author
-------
 
-Ayush Dev  
+Ayush Dev
 GitHub: https://github.com/dev000322
 
+⸻
 
 License
--------
 
-This project is intended for educational purposes.
+This project is developed for educational purposes.
+:::
